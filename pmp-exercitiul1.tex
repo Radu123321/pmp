@@ -1,0 +1,514 @@
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+\geometry{margin=2.5cm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\title{\textbf{Tema 4 - Retele Markov: independenta conditionata si factorizare}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% =========================================================
+\section{Formulele}
+% =========================================================
+
+\subsection{Probabilitatea conditionata}
+
+Formula:
+
+\[
+\boxed{
+P(A\mid B)=\frac{P(A,B)}{P(B)}
+}
+\]
+
+\subsection{Regula lantului}
+
+Pentru trei variabile aleatoare:
+
+\[
+\boxed{
+P(a,b,c)=P(a\mid b,c)P(c\mid b)P(b)
+}
+\]
+
+\subsection{Independenta conditionata}
+
+\[
+\boxed{A\perp C\mid B}
+\]
+
+\[
+\boxed{
+P(a\mid b,c)=P(a\mid b)
+}
+\]
+
+O forma echivalenta este:
+
+\[
+\boxed{
+P(a,c\mid b)=P(a\mid b)P(c\mid b)
+}
+\]
+
+\textbf{Interpretare:}
+
+Daca B este cunoscut, informatia despre C nu mai modifica probabilitatea lui A.
+
+\subsection{Factorizarea unei retele Markov}
+
+Conform teoremei Hammersley-Clifford, pentru o distributie strict pozitiva care respecta proprietatile Markov ale grafului:
+
+\[
+\boxed{
+P(x)=\frac{1}{Z}
+\prod_{C\in\mathcal{C}}\psi_C(x_C)
+}
+\]
+
+Unde:
+
+\begin{itemize}
+    \item $P(x)$ = probabilitatea configuratiei complete.
+    \item $\psi_C(x_C)$ = potentialul asociat unei clici.
+    \item $\mathcal{C}$ = familia clicilor folosite in factorizare.
+    \item $Z$ = constanta de normalizare.
+\end{itemize}
+
+\subsection{Constanta de normalizare}
+
+\[
+\boxed{
+Z=\sum_x\prod_{C\in\mathcal{C}}\psi_C(x_C)
+}
+\]
+
+\textbf{Ce face Z?}
+
+Asigura faptul ca suma probabilitatilor tuturor configuratiilor este 1.
+
+\[
+\sum_x P(x)=1
+\]
+
+% =========================================================
+\section{Exercitiul 1 - Enunt}
+% =========================================================
+
+Consideram trei variabile aleatoare discrete $A$, $B$, $C$ si graful neorientat:
+
+\[
+\boxed{A-B-C}
+\]
+
+Presupunem ca distributia comuna este strict pozitiva:
+
+\[
+P(a,b,c)>0
+\]
+
+pentru orice configuratie posibila.
+
+Trebuie sa demonstram:
+
+\textbf{a)} Semnificatia independentei conditionate:
+
+\[
+A\perp C\mid B
+\]
+
+\textbf{b)} Independenta conditionata implica factorizarea:
+
+\[
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+\]
+
+\textbf{c)} Factorizarea implica independenta conditionata.
+
+% =========================================================
+\section{Rezolvare - Punctul a)}
+% =========================================================
+
+\subsection*{Cerinta}
+
+Explicati ce inseamna:
+
+\[
+A\perp C\mid B
+\]
+
+Ce informatie suplimentara despre A mai ofera C atunci cand cunoastem B?
+
+\subsection*{Explicatie intuitiva}
+
+Consideram trei statii meteorologice:
+
+\begin{itemize}
+    \item A = statia meteo din Iasi.
+    \item B = statia meteo din Vaslui.
+    \item C = statia meteo din Barlad.
+\end{itemize}
+
+Modelul presupune ca informatia dintre A si C trece prin B.
+
+\[
+\underbrace{\text{Iasi}}_A
+-
+\underbrace{\text{Vaslui}}_B
+-
+\underbrace{\text{Barlad}}_C
+\]
+
+Sa presupunem ca stim deja ca la Vaslui ploua.
+
+Daca aflam si ca la Barlad ploua, aceasta informatie nu mai modifica probabilitatea calculata pentru vremea din Iasi, in modelul care respecta independenta conditionata data.
+
+Matematic:
+
+\[
+\boxed{
+P(a\mid b,c)=P(a\mid b)
+}
+\]
+
+% =========================================================
+\section{Rezolvare - Punctul b)}
+% =========================================================
+
+\subsection*{Cerinta}
+
+Demonstrati ca independenta conditionata implica existenta potentialelor strict pozitive $\phi_{AB}$, $\phi_{BC}$ si a unei constante $Z>0$, astfel incat:
+
+\[
+\boxed{
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+}
+\]
+
+\subsection*{Pasul 1. Pornim de la regula lantului}
+
+Formula generala:
+
+\[
+P(a,b,c)=P(a\mid b,c)P(c\mid b)P(b)
+\]
+
+Aceasta formula rezulta prin aplicarea succesiva a definitiei probabilitatii conditionate.
+
+\subsection*{Pasul 2. Aplicam independenta conditionata}
+
+Din punctul a) avem:
+
+\[
+A\perp C\mid B
+\]
+
+Asadar:
+
+\[
+P(a\mid b,c)=P(a\mid b)
+\]
+
+Inlocuim in formula:
+
+\[
+\boxed{
+P(a,b,c)=P(a\mid b)P(c\mid b)P(b)
+}
+\]
+
+\subsection*{Pasul 3. Definim potentialele}
+
+Vrem sa obtinem un produs intre un factor care depinde numai de A si B si un factor care depinde numai de B si C.
+
+Alegem:
+
+\[
+\boxed{
+\phi_{AB}(a,b)=P(a\mid b)P(b)
+}
+\]
+
+si:
+
+\[
+\boxed{
+\phi_{BC}(b,c)=P(c\mid b)
+}
+\]
+
+Inlocuind:
+
+\[
+P(a,b,c)=\phi_{AB}(a,b)\phi_{BC}(b,c)
+\]
+
+\subsection*{Pasul 4. Alegem constanta Z}
+
+Deoarece produsul este deja o distributie comuna normalizata, putem alege:
+
+\[
+\boxed{Z=1}
+\]
+
+Prin urmare:
+
+\[
+\boxed{
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+}
+\]
+
+Deoarece $P(a,b,c)>0$ pentru toate configuratiile, marginalele si probabilitatile conditionate utilizate sunt pozitive.
+
+Deci potentialele definite sunt strict pozitive.
+
+\textbf{Demonstratia este completa.}
+
+\subsection*{Exemplu numeric pentru punctul b)}
+
+Presupunem ca pentru anumite valori $a,b,c$:
+
+\[
+P(b)=0.5
+\]
+
+\[
+P(a\mid b)=0.8
+\]
+
+\[
+P(c\mid b)=0.6
+\]
+
+Calculam:
+
+\[
+P(a,b,c)=0.8\cdot0.6\cdot0.5
+\]
+
+\[
+\boxed{P(a,b,c)=0.24}
+\]
+
+Acum calculam potentialele:
+
+\[
+\phi_{AB}(a,b)=0.8\cdot0.5=0.4
+\]
+
+\[
+\phi_{BC}(b,c)=0.6
+\]
+
+Verificam:
+
+\[
+\phi_{AB}(a,b)\phi_{BC}(b,c)
+=
+0.4\cdot0.6
+\]
+
+\[
+\boxed{0.24=0.24}
+\]
+
+% =========================================================
+\section{Rezolvare - Punctul c)}
+% =========================================================
+
+\subsection*{Cerinta}
+
+Demonstrati reciproca.
+
+Daca distributia se factorizeaza astfel:
+
+\[
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+\]
+
+atunci:
+
+\[
+\boxed{A\perp C\mid B}
+\]
+
+\subsection*{Pasul 1. Scriem definitia probabilitatii conditionate}
+
+Vrem sa calculam:
+
+\[
+P(a,c\mid b)
+\]
+
+Din definitie:
+
+\[
+\boxed{
+P(a,c\mid b)=\frac{P(a,b,c)}{P(b)}
+}
+\]
+
+\subsection*{Pasul 2. Calculam probabilitatea lui B}
+
+Probabilitatea lui B se obtine prin insumarea tuturor valorilor posibile ale lui A si C.
+
+\[
+P(b)=\sum_{a'}\sum_{c'}P(a',b,c')
+\]
+
+Inlocuim factorizarea:
+
+\[
+P(b)=
+\frac{1}{Z}
+\sum_{a'}\sum_{c'}
+\phi_{AB}(a',b)\phi_{BC}(b,c')
+\]
+
+Observam ca:
+
+\begin{itemize}
+    \item $\phi_{AB}$ nu depinde de $c'$.
+    \item $\phi_{BC}$ nu depinde de $a'$.
+\end{itemize}
+
+Prin urmare, putem separa sumele:
+
+\[
+\boxed{
+P(b)=\frac{1}{Z}
+\left(
+\sum_{a'}\phi_{AB}(a',b)
+\right)
+\left(
+\sum_{c'}\phi_{BC}(b,c')
+\right)
+}
+\]
+
+\subsection*{Pasul 3. Calculam probabilitatea conditionata}
+
+Inlocuim numaratorul si numitorul in formula probabilitatii conditionate:
+
+\[
+P(a,c\mid b)=
+\frac{
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+}{
+\frac{1}{Z}
+\left(\sum_{a'}\phi_{AB}(a',b)\right)
+\left(\sum_{c'}\phi_{BC}(b,c')\right)
+}
+\]
+
+Factorul $\frac{1}{Z}$ se simplifica.
+
+Obtinem:
+
+\[
+P(a,c\mid b)=
+\frac{
+\phi_{AB}(a,b)\phi_{BC}(b,c)
+}{
+\left(\sum_{a'}\phi_{AB}(a',b)\right)
+\left(\sum_{c'}\phi_{BC}(b,c')\right)
+}
+\]
+
+Separand produsul in doua fractii:
+
+\[
+\begin{aligned}
+P(a,c\mid b)
+&=
+\underbrace{
+\frac{\phi_{AB}(a,b)}
+{\sum_{a'}\phi_{AB}(a',b)}
+}_{P(a\mid b)}
+\\[8pt]
+&\quad\cdot
+\underbrace{
+\frac{\phi_{BC}(b,c)}
+{\sum_{c'}\phi_{BC}(b,c')}
+}_{P(c\mid b)}
+\end{aligned}
+\]
+
+Deci:
+
+\[
+\boxed{
+P(a,c\mid b)=P(a\mid b)P(c\mid b)
+}
+\]
+
+Aceasta este exact definitia independentei conditionate.
+
+Rezulta:
+
+\[
+\boxed{A\perp C\mid B}
+\]
+
+\textbf{Demonstratia reciprocei este completa.}
+
+% =========================================================
+\section{Concluzia exercitiului}
+% =========================================================
+
+Am demonstrat ambele implicatii.
+
+\textbf{Prima implicatie:}
+
+\[
+A\perp C\mid B
+\implies
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+\]
+
+\textbf{A doua implicatie:}
+
+\[
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+\implies
+A\perp C\mid B
+\]
+
+Prin urmare, in conditiile exercitiului:
+
+\[
+\boxed{
+A\perp C\mid B
+\iff
+P(a,b,c)=
+\frac{1}{Z}\phi_{AB}(a,b)\phi_{BC}(b,c)
+}
+\]
+
+unde potentialele sunt strict pozitive, iar $Z>0$.
+
+Acest rezultat ilustreaza, pentru graful simplu $A-B-C$, legatura dintre proprietatile Markov si factorizarea distributiei in potentiale locale.
+
+\end{document}
